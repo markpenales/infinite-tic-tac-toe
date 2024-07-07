@@ -6,6 +6,10 @@ import { ref } from 'vue';
 const store = useStore();
 const boardState = ref(store.state.singlePlayer.board);
 
+const resetBoard = () => {
+    store.commit('resetBoard', { mode: 'singlePlayer' });
+    boardState.value = store.state.singlePlayer.board;
+};
 </script>
 
 <template>
@@ -24,6 +28,10 @@ const boardState = ref(store.state.singlePlayer.board);
             <Tile :index="6" :state="boardState[6]" />
             <Tile :index="7" :state="boardState[7]" />
             <Tile :index="8" :state="boardState[8]" />
+        </div>
+
+        <div>
+            <button type="button" @click="resetBoard">Reset Board</button>
         </div>
     </div>
 </template>

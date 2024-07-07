@@ -18,7 +18,11 @@ const store = createStore({
         setTile(state, payload) {
             state[payload.mode].board[payload.index] = payload.value;
             state[payload.mode].player = state[payload.mode].player === 'X' ? 'O' : 'X';
-        }
+        },
+        resetBoard(state, payload) {
+            state[payload.mode].board = Array(9).fill('-');
+            state[payload.mode].player = 'X';
+        },
     },
 })
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';

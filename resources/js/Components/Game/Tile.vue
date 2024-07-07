@@ -21,6 +21,10 @@ watch(() => store.state.singlePlayer.player, (newVal) => {
     state.player = newVal;
 });
 
+watch(() => store.state.singlePlayer.board[props.index], (newVal) => {
+    tileState.value = newVal;
+});
+
 const handleClick = () => {
 
     if (tileState.value === '-') {
