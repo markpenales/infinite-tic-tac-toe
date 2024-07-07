@@ -5,7 +5,22 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import { createStore } from 'vuex';
 
+const store = createStore({
+    state: {
+        singlePlayer: {
+            board: Array(9).fill('-'),
+            player: 'X',
+        },
+    },
+    mutations: {
+        setTile(state, payload) {
+            state[payload.mode].board[payload.index] = payload.value;
+            state[payload.mode].player = state[payload.mode].player === 'X' ? 'O' : 'X';
+        }
+    },
+})
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -15,6 +30,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(store)
             .mount(el);
     },
     progress: {
